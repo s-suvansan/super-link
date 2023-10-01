@@ -19,6 +19,7 @@ app.get("/:shortCode", async (req, res) => {
     const pageTitle = response.data.title || "";
     const pageDescription = response.data.desc || "";
     const pageImageURL = response.data.image || "";
+    const pageUrl = response.data.longUrl || "";
 
     // Generate the HTML with dynamic OG tags
     const html = `
@@ -33,6 +34,19 @@ app.get("/:shortCode", async (req, res) => {
               <meta property="og:title" content="${pageTitle}">
               <meta property="og:description" content="${pageDescription}">
               <meta property="og:image" content="${pageImageURL}">
+              <script>
+              var userAgent = navigator.userAgent.toLowerCase();
+              if (userAgent.includes("android")) {
+                // Redirect to the Play Store URL for your app
+                window.location.href = 'https://play.google.com/store/apps/details?id=unicom.demotown';
+              } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+                // Redirect to the Play Store URL for your app
+                window.location.href = 'https://apps.apple.com/gb/app/demotown/id1548418952';
+              } else {
+                // Redirect to your desktop website or a different URL
+                window.location.href = '${pageUrl}';
+              }
+            </script>
           </head>
           <body>
               Super Link Loading......
