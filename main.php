@@ -27,6 +27,7 @@ $html = str_replace('%TITLE%',$title, $html);
 $html = str_replace('%DESCRIPTION%', $description, $html); 
 $html = str_replace('%IMAGE%', $image, $html); // Output the modified HTML to the browser 
 
-echo $html; 
+// echo $html; 
+file_put_contents('index.html', $html);
 ?>
  
