@@ -16,9 +16,9 @@ app.get("/:shortCode", async (req, res) => {
     );
 
     // Dynamic data for OG tags
-    const pageTitle = response.title || "";
-    const pageDescription = response.desc || "";
-    const pageImageURL = response.image || "";
+    const pageTitle = response.data.title || "";
+    const pageDescription = response.data.desc || "";
+    const pageImageURL = response.data.image || "";
 
     // Generate the HTML with dynamic OG tags
     const html = `
