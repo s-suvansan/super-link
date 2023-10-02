@@ -11,8 +11,8 @@ app.use(express.json());
 
 // Serve the assetlinks.json file from a specific route
 app.get("/.well-known/assetlinks.json", (req, res) => {
-  res.json(path.join(__dirname, ".well-known\\assetlinks.json"));
-  // res.sendFile(path.join(__dirname, ".well-known\\assetlinks.json"));
+  console.log(path.join(__dirname, ".well-known/assetlinks.json"));
+  res.sendFile(path.join(__dirname, ".well-known/assetlinks.json"));
 });
 
 app.get("/:shortCode", async (req, res) => {
