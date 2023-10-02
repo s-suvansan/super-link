@@ -11,7 +11,8 @@ app.use(express.json());
 
 // Serve the assetlinks.json file from a specific route
 app.get("/.well-known/assetlinks.json", (req, res) => {
-  res.sendFile(path.join(__dirname, ".well-known\\assetlinks.json"));
+  res.json(path.join(__dirname, ".well-known\\assetlinks.json"));
+  // res.sendFile(path.join(__dirname, ".well-known\\assetlinks.json"));
 });
 
 app.get("/:shortCode", async (req, res) => {
@@ -63,7 +64,7 @@ app.get("/:shortCode", async (req, res) => {
     // Send the HTML as a response
     res.send(html);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch and extract metadata" });
+    res.status(500).json(error);
   }
 });
 
