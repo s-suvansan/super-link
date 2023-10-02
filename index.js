@@ -1,12 +1,18 @@
 // index.js
 const express = require("express");
 const axios = require("axios");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Serve the assetlinks.json file from a specific route
+app.get("/.well-known/assetlinks.json", (req, res) => {
+  res.sendFile(path.join(__dirname, ".well-known\\assetlinks.json"));
+});
 
 app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
