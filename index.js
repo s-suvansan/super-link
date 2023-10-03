@@ -27,16 +27,26 @@ app.get("/.well-known/apple-app-site-association", (req, res) => {
 app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
   try {
-    const response = await axios.get(
-      `https://short-link-py7b.onrender.com/${shortCode}`
-    );
+    const userAgent = req.headers["user-agent"].toLowerCase();
+    const response = await axios.get(`http://localhost:3500/${shortCode}`);
 
     // Dynamic data for OG tags
     const pageTitle = response.data.title || "";
     const pageDescription = response.data.desc || "";
     const pageImageURL = response.data.image || "";
     const pageUrl = response.data.longUrl || "";
-
+    let redirectUrl = "";
+    if (userAgent.includes("android")) {
+      // Redirect to the Google Play Store URL for your app
+      redirectUrl =
+        "https://play.google.com/store/apps/details?id=unicom.demotown";
+    } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+      // Redirect to the App Store URL for your app
+      redirectUrl = "https://apps.apple.com/gb/app/demotown/id1548418952";
+    } else {
+      // Redirect to a web page for other devices
+      redirectUrl = pageUrl;
+    }
     // Generate the HTML with dynamic OG tags
     const html = `
           <!DOCTYPE html>
@@ -51,14 +61,15 @@ app.get("/:shortCode", async (req, res) => {
               <meta property="og:description" content="${pageDescription}">
               <meta property="og:image" content="${pageImageURL}">
               <script>
-              var userAgent = navigator.userAgent.toLowerCase();
+              // var userAgent = navigator.userAgent.toLowerCase();
               // if (userAgent.includes("android")) {
               //   window.location.href = 'https://play.google.com/store/apps/details?id=unicom.demotown';
               // } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
               //   window.location.href = 'https://apps.apple.com/gb/app/demotown/id1548418952';
               // } else {
-                window.location.href = '${pageUrl}';
+                // window.location.href = '${pageUrl}';
               // }
+              window.location.href = '${redirectUrl}';
             </script>
           </head>
           <body>
@@ -67,8 +78,8 @@ app.get("/:shortCode", async (req, res) => {
           </html>
         `;
 
-    // Send the HTML as a response
     res.send(html);
+    // Send the HTML as a response
   } catch (error) {
     res.status(500).json(error);
   }
@@ -77,3 +88,11 @@ app.get("/:shortCode", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+/* if (
+      userAgent.includes("mozilla") ||
+      userAgent.includes("chrome") ||
+      userAgent.includes("safari") ||
+      userAgent.includes("applewebkit") ||
+      userAgent.includes("edg")
+    ) */

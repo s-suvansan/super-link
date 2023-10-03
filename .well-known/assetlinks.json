@@ -1,22 +1,26 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "unicom.demotown",
-      "sha256_cert_fingerprints":
-        ["81:7A:0C:5E:0E:18:C7:BB:B1:2C:7B:C8:CB:2D:E2:82:85:13:C1:27:B2:1E:41:A0:C8:48:ED:3E:36:C1:8C:BA"]
+      "sha256_cert_fingerprints": [
+        "81:7A:0C:5E:0E:18:C7:BB:B1:2C:7B:C8:CB:2D:E2:82:85:13:C1:27:B2:1E:41:A0:C8:48:ED:3E:36:C1:8C:BA"
+      ]
     }
   },
-  
-    {
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "unicom.demotown",
-        "sha256_cert_fingerprints":
-          ["A9:A7:DE:C7:0E:BF:E2:EC:0B:A2:3A:EA:E8:B7:2B:D1:7D:B2:38:87:A1:2E:19:2B:6E:67:10:88:D3:18:76:55"]
-      }
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "unicom.demotown",
+      "sha256_cert_fingerprints": [
+        "A9:A7:DE:C7:0E:BF:E2:EC:0B:A2:3A:EA:E8:B7:2B:D1:7D:B2:38:87:A1:2E:19:2B:6E:67:10:88:D3:18:76:55"
+      ]
     }
-  
+  }
 ]
