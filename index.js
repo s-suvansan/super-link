@@ -28,7 +28,9 @@ app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
   try {
     const userAgent = req.headers["user-agent"].toLowerCase();
-    const response = await axios.get(`http://localhost:3500/${shortCode}`);
+    const response = await axios.get(
+      `https://short-link-py7b.onrender.com/${shortCode}`
+    );
 
     // Dynamic data for OG tags
     const pageTitle = response.data.title || "";
