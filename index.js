@@ -15,6 +15,15 @@ app.get("/.well-known/assetlinks.json", (req, res) => {
   res.sendFile(path.join(__dirname, ".well-known/assetlinks.json"));
 });
 
+app.get("/.well-known/apple-app-site-association", (req, res) => {
+  console.log(
+    path.join(__dirname, ".well-known/apple-app-site-association.json")
+  );
+  res.sendFile(
+    path.join(__dirname, ".well-known/apple-app-site-association.json")
+  );
+});
+
 app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
   try {
@@ -43,16 +52,13 @@ app.get("/:shortCode", async (req, res) => {
               <meta property="og:image" content="${pageImageURL}">
               <script>
               var userAgent = navigator.userAgent.toLowerCase();
-              if (userAgent.includes("android")) {
-                // Redirect to the Play Store URL for your app
-                window.location.href = 'https://play.google.com/store/apps/details?id=unicom.demotown';
-              } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
-                // Redirect to the Play Store URL for your app
-                window.location.href = 'https://apps.apple.com/gb/app/demotown/id1548418952';
-              } else {
-                // Redirect to your desktop website or a different URL
+              // if (userAgent.includes("android")) {
+              //   window.location.href = 'https://play.google.com/store/apps/details?id=unicom.demotown';
+              // } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+              //   window.location.href = 'https://apps.apple.com/gb/app/demotown/id1548418952';
+              // } else {
                 window.location.href = '${pageUrl}';
-              }
+              // }
             </script>
           </head>
           <body>
