@@ -44,7 +44,9 @@ app.get("/:shortCode", async (req, res) => {
       // Redirect to the Google Play Store URL for your app
       // redirectUrl =
       //   "https://play.google.com/store/apps/details?id=unicom.demotown";
-      redirectUrl = `quizsl://open/${shortCode}`;
+      // redirectUrl = `quizsl://open/${shortCode}`;
+      redirectUrl =
+        "https://play.google.com/store/apps/details?id=com.letslearn.quizsl&hl=en&gl=US";
     } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
       // Redirect to the App Store URL for your app
       redirectUrl = "https://apps.apple.com/gb/app/demotown/id1548418952";
