@@ -16,12 +16,13 @@ app.get("/.well-known/assetlinks.json", (req, res) => {
 });
 
 app.get("/.well-known/apple-app-site-association", (req, res) => {
-  console.log(
-    path.join(__dirname, ".well-known/apple-app-site-association.json")
-  );
-  res.sendFile(
-    path.join(__dirname, ".well-known/apple-app-site-association.json")
-  );
+  console.log(path.join(__dirname, ".well-known/apple-app-site-association"));
+  res.sendFile(path.join(__dirname, ".well-known/apple-app-site-association"));
+});
+
+app.get("/apple-app-site-association", (req, res) => {
+  console.log(path.join(__dirname, "apple-app-site-association"));
+  res.sendFile(path.join(__dirname, "apple-app-site-association"));
 });
 
 app.get("/:shortCode", async (req, res) => {
@@ -30,6 +31,7 @@ app.get("/:shortCode", async (req, res) => {
     const userAgent = req.headers["user-agent"].toLowerCase();
     const response = await axios.get(
       `https://short-link-py7b.onrender.com/${shortCode}`
+      // `http://localhost:3500/${shortCode}`
     );
 
     // Dynamic data for OG tags
