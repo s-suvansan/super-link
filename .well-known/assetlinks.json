@@ -34,5 +34,17 @@
         "CF:DB:31:1E:E6:9F:00:E4:0D:1E:86:6E:BA:71:3B:CA:45:39:77:A7:F6:D7:1F:18:B1:5D:19:8E:CD:42:AC:BF"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.letslearn.quizsl",
+      "sha256_cert_fingerprints": [
+        "37:6E:2F:B3:76:4A:0C:75:C4:B3:9E:30:31:58:65:52:7A:DA:78:07:61:BC:E7:9E:74:6D:DE:24:9D:EF:BB:C8"
+      ]
+    }
   }
 ]
