@@ -2,6 +2,7 @@
 const express = require("express");
 const axios = require("axios");
 const path = require("path");
+const requestIP = require("request-ip");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,10 @@ app.get("/apple-app-site-association", (req, res) => {
 
 app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
+  const xclientIP = req.header("x-forwarded-for");
+  const clientIP = req.socket.remoteAddress;
+  const ip = req.ips;
+  const ipAddress = requestIP.getClientIp(req);
   try {
     const userAgent = req.headers["user-agent"].toLowerCase();
 
@@ -80,11 +85,18 @@ app.get("/:shortCode", async (req, res) => {
                 // window.location.href = '${pageUrl}';
               // }
               // window.location.href = '${redirectUrl}';
-              document.getElementById("p1").innerHTML = '${ipv6.data}';
+              // document.getElementById("p1").innerHTML = '${ipv6.data}';
             </script>
           </head>
           <body>
-              <p id="p1">Super Link Loading......</p>
+
+              <p id="p1">ipify '${ipv6.data}'</p>
+              <p id="p1">x header '${xclientIP}'</p>
+              <p id="p1">remote '${clientIP}'</p>
+              <p id="p1">req.ips '${ip.toString()}'</p>
+              <p id="p1">ipAddress pack '${ipAddress}'</p>
+
+
           </body>
           </html>
         `;
