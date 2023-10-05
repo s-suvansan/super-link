@@ -29,6 +29,8 @@ app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
   try {
     const userAgent = req.headers["user-agent"].toLowerCase();
+
+    const ipv6 = await axios.get(`https://api64.ipify.org/`);
     const response = await axios.get(
       `https://short-link-py7b.onrender.com/${shortCode}`
       // `http://localhost:3500/${shortCode}`
@@ -54,6 +56,7 @@ app.get("/:shortCode", async (req, res) => {
       // Redirect to a web page for other devices
       redirectUrl = pageUrl;
     }
+
     // Generate the HTML with dynamic OG tags
     const html = `
           <!DOCTYPE html>
@@ -76,11 +79,12 @@ app.get("/:shortCode", async (req, res) => {
               // } else {
                 // window.location.href = '${pageUrl}';
               // }
-              window.location.href = '${redirectUrl}';
+              // window.location.href = '${redirectUrl}';
+              document.getElementById("p1").innerHTML = '${ipv6.data}';
             </script>
           </head>
           <body>
-              Super Link Loading......
+              <p id="p1">Super Link Loading......</p>
           </body>
           </html>
         `;
