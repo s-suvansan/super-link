@@ -4,6 +4,8 @@ const axios = require("axios");
 const path = require("path");
 const requestIP = require("request-ip");
 
+const clipboardy = require("clipboardy");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -30,7 +32,7 @@ app.get("/:shortCode", async (req, res) => {
   const shortCode = req.params.shortCode;
   const xclientIP = req.header("x-forwarded-for");
   const clientIP = req.socket.remoteAddress;
-  const ip = req.ips;
+  const ip = req.ip;
   const ipAddress = requestIP.getClientIp(req);
   try {
     const userAgent = req.headers["user-agent"].toLowerCase();
@@ -40,7 +42,8 @@ app.get("/:shortCode", async (req, res) => {
       `https://short-link-py7b.onrender.com/${shortCode}`
       // `http://localhost:3500/${shortCode}`
     );
-
+    var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    clipboardy.writeSync(`${fullUrl} ${shortCode}`);
     // Dynamic data for OG tags
     const pageTitle = response.data.title || "";
     const pageDescription = response.data.desc || "";
