@@ -1,13 +1,13 @@
-// index.mjs (use the .mjs file extension for ES6 modules)
-import clipboard from "clipboardy";
+// index.js
 
-import express from "express";
-import axios from "axios";
-import path from "path";
-import requestIP from "request-ip";
+const express = require("express");
+const axios = require("axios");
+const path = require("path");
+const requestIP = require("request-ip");
+const ncp = require("copy-paste");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4300;
 
 // Middleware to parse JSON requests
 app.use(express.json());
@@ -40,10 +40,15 @@ app.get("/:shortCode", async (req, res) => {
     const ipv6 = await axios.get(`https://api64.ipify.org/`);
     const response = await axios.get(
       `https://short-link-py7b.onrender.com/${shortCode}`
-      //   `http://localhost:3500/${shortCode}`
+      // `http://localhost:3500/${shortCode}`
     );
-    var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-    clipboard.writeSync(`${fullUrl} ${shortCode}`);
+    var fullUrl =
+      req.protocol + "://" + req.get("host") + req.originalUrl + shortCode;
+    // clipboard.writeSync(`${fullUrl} ${shortCode}`);
+    ncp.copy(fullUrl, function () {
+      // complete...
+      console.log("complete....");
+    });
     // Dynamic data for OG tags
     const pageTitle = response.data.title || "";
     const pageDescription = response.data.desc || "";
@@ -114,3 +119,11 @@ app.get("/:shortCode", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+/* if (
+      userAgent.includes("mozilla") ||
+      userAgent.includes("chrome") ||
+      userAgent.includes("safari") ||
+      userAgent.includes("applewebkit") ||
+      userAgent.includes("edg")
+    ) */

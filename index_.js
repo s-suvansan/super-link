@@ -1,9 +1,10 @@
-// index.js
+// index.mjs (use the .mjs file extension for ES6 modules)
+import clipboard from "clipboardy";
 
-const express = require("express");
-const axios = require("axios");
-const path = require("path");
-const requestIP = require("request-ip");
+import express from "express";
+import axios from "axios";
+import path from "path";
+import requestIP from "request-ip";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,10 +40,10 @@ app.get("/:shortCode", async (req, res) => {
     const ipv6 = await axios.get(`https://api64.ipify.org/`);
     const response = await axios.get(
       `https://short-link-py7b.onrender.com/${shortCode}`
-      // `http://localhost:3500/${shortCode}`
+      //   `http://localhost:3500/${shortCode}`
     );
     var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-    clipboard.writeSync(`${fullUrl} ${shortCode}`);
+    // clipboard.writeSync(`${fullUrl} ${shortCode}`);
     // Dynamic data for OG tags
     const pageTitle = response.data.title || "";
     const pageDescription = response.data.desc || "";
@@ -91,14 +92,27 @@ app.get("/:shortCode", async (req, res) => {
             </script>
           </head>
           <body>
+           <input type="text" value="Hello World" id="myInput" />
 
-              <p id="p1">ipify '${ipv6.data}'</p>
-              <p id="p1">x header '${xclientIP}'</p>
-              <p id="p1">remote '${clientIP}'</p>
-              <p id="p1">req.ips '${ip.toString()}'</p>
-              <p id="p1">ipAddress pack '${ipAddress}'</p>
-
-
+           <!-- The button used to copy the text -->
+           <button onclick="myFunction()">Copy text</button>
+           <script>
+             myFunction();
+             function myFunction() {
+               // Get the text field
+               var copyText = document.getElementById("myInput");
+               copyText.value = "dasnfciasdfiasudf asdoifboisa asidfiuoa";
+               // Select the text field
+               copyText.select();
+               copyText.setSelectionRange(0, 99999); // For mobile devices
+       
+               // Copy the text inside the text field
+               navigator.clipboard.writeText(copyText.value);
+       
+               // Alert the copied text
+               // alert("Copied the text: " + copyText.value);
+             }
+           </script>
           </body>
           </html>
         `;
@@ -113,11 +127,3 @@ app.get("/:shortCode", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-/* if (
-      userAgent.includes("mozilla") ||
-      userAgent.includes("chrome") ||
-      userAgent.includes("safari") ||
-      userAgent.includes("applewebkit") ||
-      userAgent.includes("edg")
-    ) */
