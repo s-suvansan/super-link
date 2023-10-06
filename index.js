@@ -39,8 +39,8 @@ app.get("/:shortCode", async (req, res) => {
 
     const ipv6 = await axios.get(`https://api64.ipify.org/`);
     const response = await axios.get(
-      //   `https://short-link-py7b.onrender.com/${shortCode}`
-      `http://localhost:3500/${shortCode}`
+      `https://short-link-py7b.onrender.com/${shortCode}`
+      //   `http://localhost:3500/${shortCode}`
     );
     var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
     clipboard.writeSync(`${fullUrl} ${shortCode}`);
